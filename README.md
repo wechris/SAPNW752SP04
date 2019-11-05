@@ -128,7 +128,7 @@ or with the virtualbox UI.
 Optional
 =====
 
-The Packer template to build the openSUSE Leap 15.1 Vagrant box is available [here](https://github.com/wechris/SAPNW752SP01/tree/master/packer/openSUSE-15.1)
+The Packer template to build the openSUSE Leap 15.1 Vagrant box is available [here](https://github.com/wechris/SAPNW752SP04/tree/master/packer/openSUSE-15.1)
 
 **Packer** 
 ```
