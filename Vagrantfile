@@ -12,13 +12,13 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "openSUSE-15.1"
-  config.vm.hostname = "vhcalnplci"
-  config.vm.box_url = "./packer/openSUSE-Leap-15.1/openSUSE-15.1-virtualbox.box"
-
-  # config.vm.box = "wechris/openSUSE-42.3"
+  # config.vm.box = "openSUSE-15.1"
   # config.vm.hostname = "vhcalnplci"
-  # config.vm.box_version = "1.0.0"
+  # config.vm.box_url = "./packer/openSUSE-Leap-15.1/openSUSE-15.1-virtualbox.box"
+
+  config.vm.box = "wechris/OpenSUSE-15.1_sapnw752"
+  config.vm.hostname = "vhcalnplci"
+  config.vm.box_version = "1.0.0"
   
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
