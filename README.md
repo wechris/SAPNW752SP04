@@ -143,7 +143,7 @@ config.vm.box = "openSUSE-15.1"
 config.vm.hostname = "vhcalnplci"
 config.vm.box_url = "./packer/openSUSE-15.1/openSUSE-15.1-virtualbox.box"
 
-#  config.vm.box = "wechris/openSUSE-15.1_sapnw751"
+#  config.vm.box = "wechris/OpenSUSE-15.1_sapnw752"
 #  config.vm.hostname = "vhcalnplci"
 #  config.vm.box_version = "1.0.0"
 ```
