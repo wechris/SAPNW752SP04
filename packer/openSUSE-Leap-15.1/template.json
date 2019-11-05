@@ -1,0 +1,88 @@
+{
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/postinstall.sh",
+        "scripts/virtualbox.sh",
+        "scripts/zerodisk.sh"
+      ],
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
+    }
+  ],
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux netdevice=eth0 netsetup=dhcp<wait>",
+        " install=http://download.opensuse.org/distribution/leap/15.1/repo/oss/ <wait>",
+        " lang=en_US autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinst.xml<wait>",
+        " textmode=1<wait>",
+        "<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 102400,
+      "guest_os_type": "OpenSUSE_64",
+      "http_directory": "http",
+      "iso_checksum": "c6d3ed19fe5cc25c4667bf0b46cc86aebcfbca3b0073aed0a288834600cb8b97",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://suse.mobile-central.org/distribution/leap/15.1/iso/openSUSE-Leap-15.1-DVD-x86_64.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "60m",
+      "shutdown_command": "echo '/sbin/shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "4096"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ]
+    },
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux netdevice=ens33 netsetup=dhcp<wait>",
+        " install=http://download.opensuse.org/distribution/leap/15.1/repo/oss/ insecure=1<wait>",
+        " lang=en_US autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinst.xml<wait>",
+        " textmode=1<wait>",
+        "<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 102400,
+      "guest_os_type": "opensuse-64",
+      "http_directory": "http",
+      "iso_checksum": "c6d3ed19fe5cc25c4667bf0b46cc86aebcfbca3b0073aed0a288834600cb8b97",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://suse.mobile-central.org/distribution/leap/15.1/iso/openSUSE-Leap-15.1-DVD-x86_64.iso",
+      "ssh_username": "root",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "60m",
+      "shutdown_command": "echo '/sbin/shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "vmx_data": {
+        "memsize": "4096",
+        "numvcpus": "2",
+        "cpuid.coresPerSocket": "1"
+      }
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "openSUSE-15.1-{{ .Provider }}.box"
+    }
+  ]
+}
