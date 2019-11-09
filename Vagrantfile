@@ -93,8 +93,10 @@ Vagrant.configure("2") do |config|
   
    config.vm.provision "shell", path: "install/changetogerman.sh"
   
+   config.vm.provision "shell", path: "install/gnome.sh"
+
    config.vm.provision "shell", path: "install/sapinst.sh"
 
-   config.vm.provision "shell", path: "install/gnome.sh"
+   config.vm.provision "shell", path: "install/autostart.sh"
 
 end
