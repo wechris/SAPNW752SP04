@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+spawn /vagrant/sapinst/install.sh
+set PASSWORD "Down1oad"
+set timeout -1
+expect "Do you agree to the above license terms? yes/no:"
+send "yes\r"
+expect "Please enter a password:"
+send "$PASSWORD\r"
+expect "Please re-enter password for verification:"
+send  "$PASSWORD\r"
+expect eof
