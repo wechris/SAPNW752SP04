@@ -22,6 +22,5 @@ fi
 
 echo "Try to install SAP NW..."
 cd /vagrant/sapinst/
-chmod +x install.sh
 sudo expect -f /vagrant/install/install_nw.expect
 
