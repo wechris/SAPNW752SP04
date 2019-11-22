@@ -21,6 +21,7 @@ if [ ! -f /vagrant/sapinst/install.sh ]; then
 fi
 
 echo "Try to install SAP NW..."
-sudo cd /vagrant/sapinst/
+cd /vagrant/sapinst/
+chmod +x install.sh
 sudo expect -f /vagrant/install/install_nw.expect
 
