@@ -10,7 +10,12 @@ The openSUSE Leap 15.1 Vagrant box can be used to create a VirtualBox instance w
 
  The Packer calls are no longer necessary. If you want to create your own Vagrant Box with Packer see the optional section below.
 
- The step D.1. ***sudo -i*** and ***FINALLY, we run the installation, by entering the command ./install.sh*** must be done manually!
+ The Vagrantfile makes the following settings automatically:
+ - uuidd.sh => installes and starts the UUIDD service
+ - changetogerman.sh => changes the keyboard layout to german
+ - gnome.sh => installes the Gnome Desktop, FireFox, VSCode, Chromium, Gnome-Terminal, GVim, Libreoffice, Nautilus Explorer, YAST2 and JAVA SAP Machine 11 + OpenJFX (to get ready to install SAPGUI JAVA)
+ - sapinst.sh (+install_nw_expect) => installes the SAP NW AS ABAP 7.52 SP04 – Developer Edition is the installation files are avaiable in the `./sapint` folder
+ - autostart.sh => appends the appends the `"Autostart = 1"` to the DEFAULT.PFL profile file.
  
 Prerequisites
 =============
@@ -39,32 +44,60 @@ The actual download (in the form of several .rar files), along with more informa
 
 Search for “7.52 SP04” for convenience.
 
+Download and uncompress all files to:
+
 ```
-./sapinst/TD752SP04
+./sapinst/
 ```
- 
-**Vagrant**
+without the folder: *./TD752SP04*
+
+![sapinst](./img/folders.jpg)
+
+**Vagrantfile**
 
 Only VirtualBox:
 
-If the german keyboard is not desired, comment the following line in the vagrant file
+If the german keyboard is not desired, comment the following line in the Vagrantfile
 ````
 # config.vm.provision "shell", path: "install/changetogerman.sh"
 ````
-If the gnome desktop is not desired, comment the following line in the vagrant file
+If the gnome desktop is not desired, comment the following line in the Vagrantfile
 ````
 # config.vm.provision "shell", path: "install/gnome.sh"
 ````
 
+If the autom. installation of the SAP Netweaver 7.52SP04 is not desired, comment the following line in the Vagrantfile
+````
+# config.vm.provision "shell", path: "install/sapinst.sh"
+````
+
+If the Autostart function is not desired, comment the following line in the Vagrantfile
+
+````
+# config.vm.provision "shell", path: "install/autostart.sh"
+````
+
+Disable the UI of VirtualBox, comment the following line in the Vagrantfile
+
+````
+# vb.gui = true
+````
+
+**Vagrant start**
+
 ```
 vagrant up --provision --provider virtualbox
-or
+```
+or with debug option for more details:
+```
 vagrant up --provision --provider virtualbox --debug 2>&1 | Tee-Object -FilePath ".\vagrant.log"
 ```
 On Windows Powershell
 ```
 vagrant up --provision --provider virtualbox &> vagrant.log
-or
+```
+or with debug option for more details:
+```
 vagrant up --provision --provider virtualbox --debug &> vagrant.log
 ```
 
@@ -73,25 +106,59 @@ Wait until the vagrant command is finished. Then restart the instance with:
 vagrant reload
 ```
 
-Now you can use the VirtualBox UI:
+The vagrant box `SAPNetWeaver7.52SP04` comes up with the login screen of Gnome Desktop.
+
+
+
+Now you can use the VirtualBox UI, if the UI option was activated:
+
+![Gnome login](./img/gnome_login.jpg)
 
 **Login**
 
-Logins: 
+*Logins:*
 - vagrant/vagrant
 - root/vagrant
+- npladm/ *pwd from install_nw_expect Default: Down1oad*
 
 or use SSH into a running Vagrant machine:
 ```
 vagrant ssh
 ```
 
-**Install SAP NW AS ABAP 752 SP04 Developer Edition**
+*Start/Stop the VBox with:*
+````
+vagrant up
+vagrant halt
+````
+or with the virtualbox UI. (The `/vagrant` folder will not be avaiable without the vagrant command!)
+![Oracle_VM_VirtualBox_Manager](./img/Oracle_VM_VirtualBox_Manager.jpg)
+
+Post and optional installation steps
+===
+
+**SAPGUI JAVA installation**
+
+The folder `/vagrant/sapinst/client/JavaGUI/contains the installation files of SAPGUI JAVA: _PlatinGUI750_5-80002496.JAR_.
+
+run:
+```
+java -jar PlatinGUI750_5-80002496.JAR
+```
+and follow the installation. Click on the `New` icon, fill the fields and enter the following connection on the panel `Advanced`:
+````
+conn=/H/127.0.0.1/S/3200
+````
+Open the new JavaGUIService:
+
+![SAGUI](./img/sapgui.jpg)
+
+**Manual install of SAP NW AS ABAP 752 SP04 Developer Edition**
 
 The files and folder, on the same level as the vagrant file, will be available under /vagrant
 ````
 sudo -i
-<enter pwd>
+<enter pwd Default: vagrant>
 cd /vagrant/sapinst
 ./install.sh -s
 ````
@@ -111,19 +178,7 @@ Start the SAP system:
 
 ![SAPNetWeaver7_52SP04__Running](./img/SAPNetWeaver7_52SP04__Running.jpg)
 
-**Post and optional installation steps**
-
 Additional informations, License key and first steps follow [SAP NW AS ABAP 7.52 SP04 – Developer Edition to Download: Concise Installation Guide](https://blogs.sap.com/2019/10/01/as-abap-7.52-sp04-developer-edition-concise-installation-guide/)
-
-Start/Stop the VBox with:
-````
-vagrant up
-vagrant halt
-````
-or with the virtualbox UI.
-![Oracle_VM_VirtualBox_Manager](./img/Oracle_VM_VirtualBox_Manager.jpg)
-
-![SAGUI](./img/sapgui.jpg)
 
 Optional
 =====

@@ -89,11 +89,11 @@ Vagrant.configure("2") do |config|
   # Installations###
   # Comment the line to not to install some tool. ###
   # These tools are not optional. They are used by the others installations scripts.
-   config.vm.provision "shell", path: "install/uuidd.sh"
+  # config.vm.provision "shell", path: "install/uuidd.sh"
   
-   config.vm.provision "shell", path: "install/changetogerman.sh"
+  # config.vm.provision "shell", path: "install/changetogerman.sh"
   
-   config.vm.provision "shell", path: "install/gnome.sh"
+  # config.vm.provision "shell", path: "install/gnome.sh"
 
    config.vm.provision "shell", path: "install/sapinst.sh"
 
