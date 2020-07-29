@@ -153,6 +153,13 @@ Open the new JavaGUIService:
 
 ![SAGUI](./img/sapgui.jpg)
 
+SAPGUI Login Info: 
+Client = 000
+User = SAP*
+Passowrd = Down1oad
+
+You will then be promted 
+
 **Manual install of SAP NW AS ABAP 752 SP04 Developer Edition**
 
 The files and folder, on the same level as the vagrant file, will be available under /vagrant
