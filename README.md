@@ -153,6 +153,15 @@ Open the new JavaGUIService:
 
 ![SAGUI](./img/sapgui.jpg)
 
+SAPGUI Login Info: 
+The installed system providesthe following SAP users in client 001:Note: In general,you should develop using DEVELOPER or BWDEVELOPER (for BI content). SAP* is only for admin purposes, eg renewing the license.
+Username - DDIC           Password Down1oad
+Username - SAP*           Password Down1oad
+Username - DEVELOPER      Password Down1oad
+Username - BWDEVELOPER    Password Down1oad
+
+You will then be promted 
+
 **Manual install of SAP NW AS ABAP 752 SP04 Developer Edition**
 
 The files and folder, on the same level as the vagrant file, will be available under /vagrant
